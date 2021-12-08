@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import WeatherList from './WeatherList'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.title}> Weekly Weather Report </Text>
+      <WeatherList />
     </View>
   );
 }
@@ -16,6 +17,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    marginTop:50,
+  }, 
+  title: {
+    fontSize:25,
+    padding:5,
+    textAlign:"center",
+    width:400,
+    marginBottom:10
+},
 });
