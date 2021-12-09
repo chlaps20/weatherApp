@@ -72,10 +72,10 @@ const CurrentTemp = () => {
     (     
            <FlatList
             data={data.daily}
-            keyExtractor={({ x,i }) => i}
+            keyExtractor={(item) => item.weather[0].id}
             style={styles.flatList}
             renderItem={({ item }) => (
-                <View style={styles.tempData}> 
+                <View style={styles.tempData} key={item.weather[0].id}> 
                 {/* Weather image*/}
                 <Image source={img(item.weather[0].icon)} style={styles.img}/>
                     {/* Weather Day and main forecase */}
