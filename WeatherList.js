@@ -104,17 +104,14 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
         alignItems:'center'
       },
-     flatList : {
-        borderWidth:1,
-        borderRadius:10,
-        backgroundColor:'#3d4147'
-     } ,
+     
    
     tempData: {
         flex:1,
         flexDirection:'row',
         borderWidth:1,
         borderRadius:10,
+        borderColor:'#eee',
         justifyContent:'space-between',
         alignItems:'center',
         width:370,
@@ -128,7 +125,7 @@ const styles = StyleSheet.create({
         height:85,
     },
     temp: {
-        color:'#009dff',
+        color:'#00bbff',
         fontSize:20
     },
     day: {

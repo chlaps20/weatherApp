@@ -6,7 +6,7 @@ import WeatherList from './WeatherList'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> Weekly Weather Report </Text>
+      <Text style={styles.title}> Weekly Weather Forecast </Text>
       <WeatherList />
     </View>
   );
@@ -15,15 +15,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor:'#3d4147',
     alignItems: 'center',
     marginTop:50,
   }, 
   title: {
     fontSize:25,
-    padding:5,
+    padding:10,
     textAlign:"center",
-    width:400,
-    marginBottom:10
+    marginBottom:10,
+    color:'#fff'
 },
 });
