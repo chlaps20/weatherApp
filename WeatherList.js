@@ -4,6 +4,8 @@ import { Text, View,StyleSheet,ScrollView ,Image} from 'react-native'
 
 
 
+
+
 const WeatherList = () => {
 
     return (
@@ -15,22 +17,23 @@ const WeatherList = () => {
 }
 
 const CurrentTemp = () => {
+    
+
+
     const img = {uri: 'http://openweathermap.org/img/wn/10d@2x.png'}
     let [data,setData] = useState({});
     let [isLoading,setIsLoading] = useState(false)
 
+    const fetchData = async () => {
+        const resp = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=43.715889&lon=-79.936501&exclude=hourly,minutely,alerts&units=metric&appid=a20c3bf0f711d326499a1142898d6a87");
+        const data = await resp.json();
+        setData(data);
+        setIsLoading(false);
+      };
     
-
-    useEffect(() => {
-        fetch("https://api.openweathermap.org/data/2.5/onecall?lat=43.715889&lon=-79.936501&exclude=hourly,minutely,alerts&units=metric&appid=a20c3bf0f711d326499a1142898d6a87")
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            setData(data)
-            setIsLoading(true);
-        })
-    },[])
-
+      useEffect(() => {
+        fetchData();
+      }, []);
     
 
     return (
@@ -41,11 +44,11 @@ const CurrentTemp = () => {
             <Image source={img} style={styles.img}/>
             <View >
                 {/* Weather Image   */}
-                <Text style={styles.day}>{JSON.stringify(data.current.dt)}</Text>
-                <Text style={styles.forecast}>{JSON.stringify(data)}</Text>
+                <Text style={styles.day}>{JSON.stringify()}</Text>
+                <Text style={styles.forecast}>{JSON.stringify()}</Text>
             </View>
             {/* Temperature */}
-            <Text style={styles.temp}>{JSON.stringify(data.current.feels_like)}&#176;C</Text>
+            <Text style={styles.temp}>{JSON.stringify()}&#176;C</Text>
             </View>
         </View>
     )
