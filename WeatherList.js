@@ -1,31 +1,56 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
-import { Text, View,StyleSheet,ScrollView ,Image} from 'react-native'
+import { Text, View,StyleSheet,ScrollView ,Image,FlatList} from 'react-native'
 
 
+/*
 
+ <View style={styles.tempData}> 
+             Weather Image   
+                <Image source={img} style={styles.img}/>
+                    { Weather Day and main forecase}
+                <View>
+                    <Text style={styles.day}>{item.current}</Text>
+                    <Text style={styles.forecast}>Main Forecase</Text>
+                </View>
+                    {/* weather Temperature }
+                    <Text style={styles.temp}>Temperature&#176;C</Text>
+                </View> 
+*/
 
 
 const WeatherList = () => {
 
     return (
-        <ScrollView style-={styles.scrollView}>
+        <View style-={styles.scrollView}>
            
             <CurrentTemp />
-        </ScrollView>
+        </View>
     )
 }
 
 const CurrentTemp = () => {
     
+    const img = (icon) => {
+      return { uri: `http://openweathermap.org/img/wn/${icon}@2x.png`}
+       
+    }
 
+    const timeConversion = (day) => {
+        var a = new Date(day * 1000);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+       
+        return date + " / " + month + " / " + year;
+    }
 
-    const img = {uri: 'http://openweathermap.org/img/wn/10d@2x.png'}
     let [data,setData] = useState({});
-    let [isLoading,setIsLoading] = useState(false)
+    let [isLoading,setIsLoading] = useState(true)
 
     const fetchData = async () => {
-        const resp = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=43.715889&lon=-79.936501&exclude=hourly,minutely,alerts&units=metric&appid=a20c3bf0f711d326499a1142898d6a87");
+        const resp = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=43.715889&lon=-79.936501&exclude=hourly,minutely,alerts&units=metric&appid=4a96669b6edfbc0ae2f0b734ab86f8e2")
         const data = await resp.json();
         setData(data);
         setIsLoading(false);
@@ -38,21 +63,39 @@ const CurrentTemp = () => {
 
     return (
         
-        <View style={styles.tempData}>
-            {/* Weather Image */}
-            <View style={styles.container}>
-            <Image source={img} style={styles.img}/>
-            <View >
-                {/* Weather Image   */}
-                <Text style={styles.day}>{JSON.stringify()}</Text>
-                <Text style={styles.forecast}>{JSON.stringify()}</Text>
-            </View>
-            {/* Temperature */}
-            <Text style={styles.temp}>{JSON.stringify()}&#176;C</Text>
-            </View>
+
+        <View style={styles.container}>
+
+      {isLoading ? <Text>Loading...</Text> : 
+
+        
+    (     
+           <FlatList
+            data={data.daily}
+            keyExtractor={({ x,i }) => i}
+            style={styles.flatList}
+            renderItem={({ item }) => (
+                <View style={styles.tempData}> 
+                {/* Weather image*/}
+                <Image source={img(item.weather[0].icon)} style={styles.img}/>
+                    {/* Weather Day and main forecase */}
+                <View style={{alignItems:'center'}}>
+                    
+                    <Text style={styles.day}>{timeConversion(item.dt)}</Text>
+                    <Text style={styles.forecast}>{item.weather[0].main}</Text>
+                </View>
+                    {/* weather Temperature */}
+                    <Text style={styles.temp}>{Math.floor(item.temp.day)}&#176;C</Text>
+                </View> 
+            )}
+          />
+
+          )}
+ 
         </View>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -61,29 +104,41 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
         alignItems:'center'
       },
+     flatList : {
+        borderWidth:1,
+        borderRadius:10,
+        backgroundColor:'#3d4147'
+     } ,
    
     tempData: {
         flex:1,
-        flexDirection:'column',
+        flexDirection:'row',
         borderWidth:1,
         borderRadius:10,
-        width:400,
-        height:75,
+        justifyContent:'space-between',
+        alignItems:'center',
+        width:370,
+        height:85,
+        margin:10,
+        backgroundColor:"#777f8c",
+        paddingRight:10
     },
     img: {
         width:100,
         height:85,
     },
     temp: {
-        color:'red',
+        color:'#009dff',
         fontSize:20
     },
     day: {
         color:'blue',
-        fontSize:15
+        fontSize:15,
+        textAlign:'center',
+        marginBottom:5
     },
     forecast:{
-        color:'green'
+        color:'#1cd48a'
     }
 
 })
