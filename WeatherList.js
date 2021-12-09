@@ -1,22 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import axios from 'axios'
-import { Text, View,StyleSheet,ScrollView ,Image,FlatList} from 'react-native'
-
-
-/*
-
- <View style={styles.tempData}> 
-             Weather Image   
-                <Image source={img} style={styles.img}/>
-                    { Weather Day and main forecase}
-                <View>
-                    <Text style={styles.day}>{item.current}</Text>
-                    <Text style={styles.forecast}>Main Forecase</Text>
-                </View>
-                    {/* weather Temperature }
-                    <Text style={styles.temp}>Temperature&#176;C</Text>
-                </View> 
-*/
+import { Text,View,StyleSheet,Image,FlatList} from 'react-native'
 
 
 const WeatherList = () => {
